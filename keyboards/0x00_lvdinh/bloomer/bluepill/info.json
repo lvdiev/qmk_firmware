@@ -1,9 +1,25 @@
 {
-    "keyboard_name": "Bloomer Blue Pill",
-    "url": "",
-    "maintainer": "lvdinh",
     "manufacturer": "lvdinh",
-    "PRODUCT": "BloomerBluePill",
+    "keyboard_name": "Bloomer Blue Pill",
+    "maintainer": "lvdinh",
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "sleep": true
+    },
+    "matrix_pins": {
+        "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "B3", "A9", "A8", "B15", "B14", "B13", "B12"],
+        "rows": ["B4", "B5", "B6", "B7", "B9", "B8"]
+    },
+    "led_caps_lock_pin": "A0",
+    "url": "",
     "usb": {
         "vid": "0xFEDE",
         "pid": "0x6942",
