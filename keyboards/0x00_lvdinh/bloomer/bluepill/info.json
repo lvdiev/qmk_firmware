@@ -4,7 +4,10 @@
     "maintainer": "lvdinh",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "diode_direction": "COL2ROW",
+    "debounce": 5,
+    "tapping":{
+        "term": 500
+    },
     "features": {
         "bootmagic": true,
         "command": true,
@@ -14,11 +17,14 @@
         "nkro": true,
         "sleep": true
     },
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "B3", "A9", "A8", "B15", "B14", "B13", "B12"],
-        "rows": ["B4", "B5", "A0", "A1", "A2", "A3"]
+        "cols": ["B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A10", "A9", "A8", "B15", "B14", "B13", "B12"],
+        "rows": ["B4", "B5", "B6", "B7", "B8", "B9"]
     },
-    "led_caps_lock_pin": "A0",
+    "indicators": {
+        "caps_lock": "A0"
+    },
     "url": "",
     "usb": {
         "vid": "0xFEDE",
