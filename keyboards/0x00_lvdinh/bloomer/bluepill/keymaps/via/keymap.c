@@ -58,3 +58,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 
 };
+
+#ifdef OLED_ENABLE
+
+// Rotate OLED
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_0;  
+}
+
+// Draw to OLED
+bool oled_task_user() {
+    // Set cursor position
+    oled_set_cursor(0, 1);
+    
+    // Write text to OLED
+    oled_write("Hello World!", false);
+    
+    return false;
+}
+
+#endif
