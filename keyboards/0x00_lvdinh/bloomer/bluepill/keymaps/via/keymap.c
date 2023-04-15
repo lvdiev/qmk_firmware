@@ -69,6 +69,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 bool oled_task_user(void) {
 	render_bongocat();
 	render_wpm();
+	render_caps_locks();
     
     return false;
 }
