@@ -85,36 +85,34 @@ void render_bongocat(void) {
         },
     };
 
+    uint8_t current_wpm = get_current_wpm();
+
     //assumes 1 frame prep stage
     void animation_phase(void) {
-        if(get_current_wpm() <=IDLE_SPEED){
+        if (current_wpm <= IDLE_SPEED) {
             current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-            oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
-         }
-         if(get_current_wpm() >IDLE_SPEED && get_current_wpm() <TAP_SPEED){
-             // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
-             oled_write_raw_P(prep[0], ANIM_SIZE);  // remove if IDLE_FRAMES >1
-         }
-         if(get_current_wpm() >=TAP_SPEED){
-             current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
-             oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
-         }
+            oled_write_raw_P(idle[abs((IDLE_FRAMES - 1) - current_idle_frame)], ANIM_SIZE);
+        } else if (current_wpm < TAP_SPEED) {
+            // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
+            oled_write_raw_P(prep[0], ANIM_SIZE); // remove if IDLE_FRAMES >1
+        }
+        else {
+            current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
+            oled_write_raw_P(tap[abs((TAP_FRAMES - 1) - current_tap_frame)], ANIM_SIZE);
+        }
     }
-    if(get_current_wpm() != 000) {
+    
+    if (current_wpm != 000) {
         oled_on(); // not essential but turns on animation OLED with any alpha keypress
-        if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+        if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
             anim_timer = timer_read32();
             animation_phase();
         }
         anim_sleep = timer_read32();
-    } else {
-        if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-            oled_off();
-        } else {
-            if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
-                anim_timer = timer_read32();
-                animation_phase();
-            }
-        }
+    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+        oled_off();
+    } else if (timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
+        anim_timer = timer_read32();
+        animation_phase();
     }
 }
